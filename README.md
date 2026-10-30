@@ -59,8 +59,17 @@ Fill in only the local section:
 | `CONVEX_DEPLOYMENT` | `.env.local` — your deployment name, or export `CONVEX_DEPLOY_KEY` instead |
 | `CONVEX_DEPLOY_KEY` | **never** in `.env`/`.env.local`; CI secrets or your shell only |
 
-`VITE_CONVEX_URL` is baked in at **build** time, so changing projects means editing `.env.local`
-and rebuilding — no source edit.
+`.env.local` is **optional** — an exported variable cannot be committed by accident, so prefer
+the shell or CI:
+
+```bash
+export VITE_CONVEX_URL=https://<your-deployment>.convex.cloud
+export CONVEX_DEPLOYMENT=<your-deployment>      # or CONVEX_DEPLOY_KEY for headless
+```
+
+`VITE_CONVEX_URL` is inlined at **build** time, so changing projects means re-exporting and
+rebuilding — no source edit. `bun run setup:check` reads the environment first and only falls back
+to `.env.local` if the file happens to exist.
 
 ### 4. Deployment config
 
