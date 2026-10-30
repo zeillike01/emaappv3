@@ -1,0 +1,14 @@
+# Local Convex deployment pointer + client URL. Never commit.
+.env.local
+.env
+.env.prod.local
+# Scoped Convex deploy key for CI/agent pushes (CONVEX_DEPLOY_KEY). Never commit.
+.env.deploy
+node_modules
+dist
+# src/convex/_generated is COMMITTED on purpose: a clean checkout cannot
+# typecheck without it and two ported tests import it. Regenerate with
+# `npx convex dev` when the deployment's functions change.
+data/
+# Kline cache + backtest scratch output (regenerable via bun run cache:seed).
+src/lib/.kline-cache/

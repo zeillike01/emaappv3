@@ -1,0 +1,396 @@
+/* DO NOT CHANGE */
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+/* DO NOT CHANGE */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* CHANGE VALUES FOR THEME */
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.975 0.004 240);
+  --foreground: oklch(0.18 0.02 260);
+  --card: oklch(0.99 0.002 220);
+  --card-foreground: oklch(0.18 0.02 260);
+  --popover: oklch(0.99 0.002 220);
+  --popover-foreground: oklch(0.18 0.02 260);
+  --primary: oklch(0.45 0.12 250);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.95 0.008 240);
+  --secondary-foreground: oklch(0.25 0.03 260);
+  --muted: oklch(0.94 0.006 240);
+  --muted-foreground: oklch(0.52 0.02 260);
+  --accent: oklch(0.95 0.015 220);
+  --accent-foreground: oklch(0.25 0.03 260);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.008 240);
+  --input: oklch(0.92 0.006 240);
+  --ring: oklch(0.55 0.12 250);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.98 0.003 230);
+  --sidebar-foreground: oklch(0.18 0.02 260);
+  --sidebar-primary: oklch(0.45 0.12 250);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.95 0.008 240);
+  --sidebar-accent-foreground: oklch(0.25 0.03 260);
+  --sidebar-border: oklch(0.9 0.008 240);
+  --sidebar-ring: oklch(0.55 0.12 250);
+}
+
+/* Glassmorphism base styles */
+body {
+  background: radial-gradient(circle at 15% 15%, oklch(0.99 0.003 240) 0%, transparent 45%),
+    radial-gradient(circle at 85% 25%, oklch(0.985 0.006 215) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, oklch(0.98 0.005 250) 0%, transparent 55%),
+    linear-gradient(135deg, oklch(0.978 0.003 240) 0%, oklch(0.965 0.005 230) 50%, oklch(0.972 0.004 245) 100%);
+  min-height: 100vh;
+  letter-spacing: -0.01em;
+}
+
+.dark {
+  --background: oklch(0.16 0.022 262);
+  --foreground: oklch(0.96 0.008 240);
+  --card: oklch(0.185 0.02 260);
+  --card-foreground: oklch(0.96 0.008 240);
+  --popover: oklch(0.185 0.02 260);
+  --popover-foreground: oklch(0.96 0.008 240);
+  --primary: oklch(0.68 0.14 235);
+  --primary-foreground: oklch(0.16 0.02 262);
+  --secondary: oklch(0.23 0.018 258);
+  --secondary-foreground: oklch(0.93 0.01 235);
+  --muted: oklch(0.23 0.018 258);
+  --muted-foreground: oklch(0.66 0.02 240);
+  --accent: oklch(0.24 0.024 245);
+  --accent-foreground: oklch(0.93 0.01 235);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.75 0.02 240 / 16%);
+  --input: oklch(0.75 0.02 240 / 22%);
+  --ring: oklch(0.72 0.13 232);
+  --chart-1: oklch(0.66 0.14 220);
+  --chart-2: oklch(0.73 0.16 165);
+  --chart-3: oklch(0.72 0.13 250);
+  --chart-4: oklch(0.77 0.17 285);
+  --chart-5: oklch(0.71 0.18 190);
+  --sidebar: oklch(0.185 0.02 260);
+  --sidebar-foreground: oklch(0.96 0.008 240);
+  --sidebar-primary: oklch(0.68 0.14 235);
+  --sidebar-primary-foreground: oklch(0.16 0.02 262);
+  --sidebar-accent: oklch(0.24 0.024 245);
+  --sidebar-accent-foreground: oklch(0.93 0.01 235);
+  --sidebar-border: oklch(0.75 0.02 240 / 16%);
+  --sidebar-ring: oklch(0.72 0.13 232);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not([disabled]),
+  [role="button"]:not([disabled]) {
+    cursor: pointer;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   DARK MODE — glass remap layer (2026-09)
+
+   The app's custom glass components hardcode Tailwind's light palette
+   (white-glass surfaces, slate text, tint chips). Rather than threading
+   `dark:` variants through every component, this block remaps those exact
+   utilities when `.dark` is on <html>. It sits outside @layer, so it beats
+   Tailwind's layered utilities, and `.dark .cls` out-specifies `.cls`.
+
+   Palette: cool navy glass (slate-800 family) with slate-300/400 text,
+   softened accent text one step brighter, and dark-appropriate tint chips.
+   ════════════════════════════════════════════════════════════════════ */
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Body backdrop — deep cool gradient instead of the bright one. */
+.dark body {
+  background:
+    radial-gradient(1100px 640px at 12% 8%, oklch(0.28 0.055 252 / 0.5), transparent 60%),
+    radial-gradient(900px 600px at 88% 20%, oklch(0.24 0.06 225 / 0.4), transparent 60%),
+    radial-gradient(1000px 700px at 55% 95%, oklch(0.24 0.05 280 / 0.35), transparent 62%),
+    linear-gradient(160deg, oklch(0.155 0.02 262) 0%, oklch(0.135 0.02 252) 50%, oklch(0.155 0.022 275) 100%);
+}
+
+/* ── Surfaces: white-glass → navy glass (same translucency stack) ── */
+.dark .bg-white\/5   { background-color: rgba(148, 163, 184, 0.08); }
+.dark .bg-white\/15  { background-color: rgba(148, 163, 184, 0.12); }
+.dark .bg-white\/20  { background-color: rgba(30, 41, 59, 0.35); }
+.dark .bg-white\/35  { background-color: rgba(30, 41, 59, 0.52); }
+.dark .bg-white\/25  { background-color: rgba(30, 41, 59, 0.42); }
+.dark .bg-white\/30  { background-color: rgba(30, 41, 59, 0.48); }
+.dark .bg-white\/40  { background-color: rgba(30, 41, 59, 0.55); }
+.dark .bg-white\/45  { background-color: rgba(26, 36, 55, 0.58); }
+.dark .bg-white\/50  { background-color: rgba(26, 36, 55, 0.62); }
+.dark .bg-white\/60  { background-color: rgba(23, 33, 51, 0.7); }
+.dark .bg-white\/70  { background-color: rgba(19, 28, 45, 0.82); }
+.dark .bg-white\/75  { background-color: rgba(16, 25, 42, 0.88); }
+.dark .bg-white\/80  { background-color: rgba(15, 23, 42, 0.92); }
+.dark .bg-white\/85  { background-color: rgba(15, 23, 42, 0.95); }
+.dark .bg-white\/90  { background-color: rgba(15, 23, 42, 0.97); }
+.dark .hover\:bg-white\/30:hover { background-color: rgba(30, 41, 59, 0.6); }
+.dark .hover\:bg-white\/40:hover { background-color: rgba(30, 41, 59, 0.68); }
+.dark .hover\:bg-white\/55:hover { background-color: rgba(30, 41, 59, 0.75); }
+.dark .hover\:bg-white\/65:hover { background-color: rgba(30, 41, 59, 0.78); }
+.dark .hover\:bg-white\/70:hover { background-color: rgba(51, 65, 85, 0.85); }
+.dark .hover\:bg-white\/75:hover { background-color: rgba(51, 65, 85, 0.9); }
+
+/* ── Borders: white edges → cool blue-slate liquid edges ── */
+.dark .border-white\/20 { border-color: rgba(148, 163, 184, 0.14); }
+.dark .border-white\/60 { border-color: rgba(148, 163, 184, 0.32); }
+.dark .border-white\/30 { border-color: rgba(148, 163, 184, 0.20); }
+.dark .border-white\/40 { border-color: rgba(148, 163, 184, 0.26); }
+.dark .border-white\/50 { border-color: rgba(148, 163, 184, 0.28); }
+.dark .border-white\/65 { border-color: rgba(148, 163, 184, 0.36); }
+.dark .border-white\/70 { border-color: rgba(148, 163, 184, 0.4); }
+.dark .border-white\/80 { border-color: rgba(148, 163, 184, 0.5); }
+.dark .hover\:border-white\/50:hover { border-color: rgba(148, 163, 184, 0.42); }
+.dark .hover\:border-white\/60:hover { border-color: rgba(148, 163, 184, 0.5); }
+.dark .hover\:border-white\/80:hover { border-color: rgba(148, 163, 184, 0.6); }
+
+/* ── White gradient stops → navy glass gradient stops (icon tiles, mock panels) ── */
+.dark .from-white\/40  { --tw-gradient-from: rgba(30, 41, 59, 0.5); }
+.dark .from-white\/70  { --tw-gradient-from: rgba(30, 41, 59, 0.68); }
+.dark .via-white\/30   { --tw-gradient-via: rgba(30, 41, 59, 0.45); }
+.dark .via-white\/40   { --tw-gradient-via: rgba(30, 41, 59, 0.55); }
+.dark .to-white\/40    { --tw-gradient-to: rgba(30, 41, 59, 0.5); }
+.dark .to-white\/60    { --tw-gradient-to: rgba(23, 33, 51, 0.66); }
+.dark .hover\:text-slate-700:hover { color: #cbd5e1; }
+.dark .hover\:text-slate-800:hover { color: #e2e8f0; }
+
+/* ── Typography: slate text, inverted to light-on-navy ── */
+.dark .text-slate-900 { color: #f8fafc; }
+.dark .text-slate-800 { color: #e2e8f0; }
+.dark .text-slate-700 { color: #cbd5e1; }
+.dark .text-slate-600 { color: #aebccd; }
+.dark .text-slate-500 { color: #94a3b8; }
+.dark .text-slate-400 { color: #8291a6; }
+.dark .text-slate-300 { color: #64748b; }
+
+/* ── Accent text: brightened one step for dark backgrounds ── */
+.dark .text-emerald-500 { color: #34d399; }
+.dark .text-emerald-600 { color: #34d399; }
+.dark .text-emerald-700 { color: #6ee7b7; }
+.dark .text-red-500 { color: #f87171; }
+.dark .text-red-600 { color: #f87171; }
+.dark .text-rose-500 { color: #fb7185; }
+.dark .text-rose-600 { color: #fb7185; }
+.dark .text-rose-700 { color: #fda4af; }
+.dark .text-sky-500 { color: #38bdf8; }
+.dark .text-sky-600 { color: #38bdf8; }
+.dark .text-sky-700 { color: #7dd3fc; }
+.dark .text-blue-500 { color: #60a5fa; }
+.dark .text-blue-700 { color: #93c5fd; }
+.dark .text-indigo-500 { color: #818cf8; }
+.dark .text-indigo-600 { color: #a5b4fc; }
+.dark .text-violet-400 { color: #c4b5fd; }
+.dark .text-violet-500 { color: #a78bfa; }
+.dark .text-violet-600 { color: #a78bfa; }
+.dark .text-violet-700 { color: #c4b5fd; }
+.dark .text-amber-500 { color: #fbbf24; }
+.dark .text-amber-600 { color: #fcd34d; }
+.dark .text-amber-700 { color: #fcd34d; }
+
+/* ── Tint chips: pastel fills → translucent colored glass ── */
+.dark .bg-emerald-100    { background-color: rgba(16, 185, 129, 0.16); }
+.dark .bg-emerald-50     { background-color: rgba(16, 185, 129, 0.10); }
+.dark .bg-emerald-50\/50 { background-color: rgba(16, 185, 129, 0.10); }
+.dark .bg-red-100        { background-color: rgba(244, 63, 94, 0.16); }
+.dark .bg-red-50         { background-color: rgba(244, 63, 94, 0.10); }
+.dark .bg-red-50\/50     { background-color: rgba(244, 63, 94, 0.10); }
+.dark .bg-red-50\/30     { background-color: rgba(244, 63, 94, 0.08); }
+.dark .bg-rose-50\/50    { background-color: rgba(244, 63, 94, 0.10); }
+.dark .bg-rose-500\/15   { background-color: rgba(244, 63, 94, 0.15); }
+.dark .bg-slate-100      { background-color: rgba(148, 163, 184, 0.16); }
+.dark .bg-slate-50\/50   { background-color: rgba(148, 163, 184, 0.08); }
+.dark .bg-slate-50\/80   { background-color: rgba(148, 163, 184, 0.12); }
+.dark .bg-slate-500\/10  { background-color: rgba(148, 163, 184, 0.10); }
+.dark .bg-slate-300      { background-color: rgba(148, 163, 184, 0.22); }
+.dark .bg-violet-100\/60 { background-color: rgba(167, 139, 250, 0.18); }
+.dark .bg-violet-50\/50  { background-color: rgba(167, 139, 250, 0.10); }
+.dark .bg-violet-50\/40  { background-color: rgba(167, 139, 250, 0.09); }
+.dark .bg-sky-100\/60    { background-color: rgba(56, 189, 248, 0.18); }
+.dark .bg-sky-50\/40     { background-color: rgba(56, 189, 248, 0.09); }
+.dark .hover\:bg-sky-100\/60:hover   { background-color: rgba(56, 189, 248, 0.24); }
+.dark .hover\:bg-violet-100\/60:hover { background-color: rgba(167, 139, 250, 0.24); }
+
+/* ── Liquid Glass Enhancements ── */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+              0 14px 38px -12px rgba(15, 23, 42, 0.08);
+}
+
+.liquid-glass-subtle {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.75);
+}
+
+.liquid-chip {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.8), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
+/* Tabular numbers for all financial values */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+.dark .bg-slate-900\/90 { background-color: rgba(148, 163, 184, 0.18); }
+.dark .hover\:bg-slate-800:hover { background-color: rgba(148, 163, 184, 0.30); }
+
+/* ── Brand gradients: sky→indigo brightened for dark mode ── */
+.dark .from-sky-500  { --tw-gradient-from: #38bdf8; }
+.dark .from-sky-600  { --tw-gradient-from: #0ea5e9; }
+.dark .to-indigo-600 { --tw-gradient-to: #818cf8; }
+.dark .to-indigo-700 { --tw-gradient-to: #6366f1; }
+
+/* ── Decorative background orbs: bright pastels → faint cool glows ── */
+.dark .from-sky-100       { --tw-gradient-from: rgba(125, 211, 252, 0.16); }
+.dark .from-sky-100\/50   { --tw-gradient-from: rgba(125, 211, 252, 0.10); }
+.dark .from-sky-200\/30   { --tw-gradient-from: rgba(125, 211, 252, 0.12); }
+.dark .from-sky-200\/40   { --tw-gradient-from: rgba(125, 211, 252, 0.15); }
+.dark .from-sky-400\/60   { --tw-gradient-from: rgba(56, 189, 248, 0.18); }
+.dark .from-indigo-200\/20 { --tw-gradient-from: rgba(165, 180, 252, 0.09); }
+.dark .from-indigo-200\/30 { --tw-gradient-from: rgba(165, 180, 252, 0.12); }
+.dark .from-emerald-200\/15 { --tw-gradient-from: rgba(110, 231, 183, 0.08); }
+.dark .from-emerald-200\/20 { --tw-gradient-from: rgba(110, 231, 183, 0.10); }
+.dark .from-slate-50\/80  { --tw-gradient-from: rgba(148, 163, 184, 0.16); }
+.dark .via-blue-50\/30    { --tw-gradient-via: rgba(147, 197, 253, 0.10); }
+.dark .to-cyan-100\/15    { --tw-gradient-to: rgba(165, 243, 252, 0.07); }
+.dark .to-cyan-100\/20    { --tw-gradient-to: rgba(165, 243, 252, 0.09); }
+.dark .to-blue-100\/10    { --tw-gradient-to: rgba(191, 219, 254, 0.05); }
+.dark .to-blue-100\/15    { --tw-gradient-to: rgba(191, 219, 254, 0.07); }
+.dark .to-teal-100\/8     { --tw-gradient-to: rgba(153, 246, 228, 0.04); }
+.dark .to-teal-100\/10    { --tw-gradient-to: rgba(153, 246, 228, 0.05); }
+.dark .to-indigo-100      { --tw-gradient-to: rgba(199, 210, 254, 0.10); }
+.dark .to-indigo-100\/50  { --tw-gradient-to: rgba(199, 210, 254, 0.12); }
+.dark .to-indigo-400\/40  { --tw-gradient-to: rgba(129, 140, 248, 0.12); }
+
+/* ════════════════════════════════════════════════════════════════════
+   MIDNIGHT LIQUID — dark-mode sheen pass (2026-09)
+
+   The light theme paints panels with a white inner top-light (specular
+   edge). On navy glass that pure-white inset reads harsh, so this block
+   remaps those exact arbitrary shadow utilities to a soft cool cyan-slate
+   sheen plus a deeper drop shadow. White-alpha variants 0.35 (gradient CTA
+   buttons) and colored outer glows are intentionally left alone.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* inset 0 1px 1px white 0.9 / 0.85 / 0.8 → cool sheen (surfaces, rows) */
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.9\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.22);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.85\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.2);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.8\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.18);
+}
+
+/* inset 0 1px 0 white 0.8 / 0.6 → cool hairline */
+.dark .shadow-\[inset_0_1px_0_rgba\(255\,255\,255\,0\.8\)\] {
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.2);
+}
+.dark .shadow-\[inset_0_1px_0_rgba\(255\,255\,255\,0\.6\)\] {
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.15);
+}
+
+/* GlassPanel base + hover */
+.dark .shadow-\[inset_0_1px_1\.5px_rgba\(255\,255\,255\,0\.9\)\,0_14px_38px_-12px_rgba\(15\,23\,42\,0\.09\)\] {
+  box-shadow: inset 0 1px 1.5px rgba(148, 163, 184, 0.2), 0 18px 46px -18px rgba(2, 6, 23, 0.55);
+}
+.dark .shadow-\[inset_0_1px_2px_rgba\(255\,255\,255\,1\)\,0_20px_44px_-14px_rgba\(15\,23\,42\,0\.14\)\] {
+  box-shadow: inset 0 1px 1.5px rgba(125, 211, 252, 0.22), 0 24px 52px -18px rgba(2, 6, 23, 0.6);
+}
+
+/* Stat tiles + frost headers + glass rows (inset + soft outer) */
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.85\)\,0_6px_20px_-6px_rgba\(15\,23\,42\,0\.06\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.2), 0 8px 26px -8px rgba(2, 6, 23, 0.5);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.9\)\,0_6px_20px_-6px_rgba\(15\,23\,42\,0\.06\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.22), 0 8px 26px -8px rgba(2, 6, 23, 0.5);
+}
+.dark .shadow-\[inset_0_-1px_0_rgba\(255\,255\,255\,0\.8\)\,0_4px_16px_-4px_rgba\(0\,0\,0\,0\.03\)\] {
+  box-shadow: inset 0 -1px 0 rgba(148, 163, 184, 0.18), 0 6px 18px -8px rgba(2, 6, 23, 0.55);
+}
+
+/* Active nav pills + icon tiles (white inset → cyan sheen, tinted glow kept) */
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,1\)\,0_2px_8px_-2px_rgba\(15\,23\,42\,0\.08\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.3), 0 3px 10px -3px rgba(2, 6, 23, 0.6);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,1\)\,0_2px_8px_-2px_rgba\(14\,165\,233\,0\.15\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.3), 0 3px 10px -3px rgba(2, 6, 23, 0.6);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,1\)\,0_2px_8px_-2px_rgba\(244\,63\,94\,0\.15\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.3), 0 3px 10px -3px rgba(2, 6, 23, 0.6);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.95\)\,0_4px_12px_-2px_rgba\(14\,165\,233\,0\.12\)\] {
+  box-shadow: inset 0 1px 1px rgba(125, 211, 252, 0.2), 0 4px 14px -4px rgba(2, 6, 23, 0.6);
+}
+
+/* Section/subtle glass tiles (white 0.6 / 0.7 leftovers) */
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.7\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.16);
+}
+.dark .shadow-\[inset_0_1px_0_rgba\(255\,255\,255\,0\.7\)\] {
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.16);
+}
+.dark .shadow-\[inset_0_1px_1px_rgba\(255\,255\,255\,0\.7\)\,0_14px_38px_-14px_rgba\(15\,23\,42\,0\.16\)\] {
+  box-shadow: inset 0 1px 1px rgba(148, 163, 184, 0.16), 0 16px 40px -16px rgba(2, 6, 23, 0.55);
+}
