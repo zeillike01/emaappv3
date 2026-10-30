@@ -99,7 +99,7 @@ Also missing upstream (display-only, two pages no longer render these panels):
   anonymous sessions are rejected on the email check; queries stay public.
 
 Not run (needs the deployment + keys): live deployment, `audit:live`, `lab:armcheck`,
-`cache:seed`, replay parity over a window, cron tick observation.
+cron tick observation.
 
 ## Empty-database behaviour (what you get with zero rows)
 
@@ -171,3 +171,35 @@ bun run cache:seed
 # 5. Paper only. Leave CRONS_ENABLED unset until paperTrades is writing and
 #    liveTrades is still empty. Arm live last, after audit:live + lab:armcheck.
 ```
+
+## Replay result (2026-10-30) — verification gate #2, run for real
+
+Harness: `scripts/verify-parity-replay.ts` (added for this gate). It reads ONLY the local kline
+cache with `localOnly: true`, so both trees consume byte-identical bars, and it runs the same
+harness file copied into each tree.
+
+| window | pair | signals | trades | win rate | return | maxDD | PF | vs reference |
+|---|---|---|---|---|---|---|---|---|
+| 2026-09-01→10-01 | BTC | 13 (L9/S4) | 13 | 23.1% | −9.902% | 17.496 | 0.710 | identical |
+| 2026-09-01→10-01 | ETH | 14 (L12/S2) | 14 | 21.4% | −12.548% | 24.278 | 0.650 | identical |
+| 2026-09-01→10-01 | SOL | 11 (L9/S2) | 11 | 9.1% | −21.829% | 21.829 | 0.238 | identical |
+| 2026-05-15→10-01 | BTC | 96 (L51/S45) | 93 | 19.4% | −66.925% | 72.602 | 0.567 | identical |
+
+Input files were `cmp`-compared before the run; `diff` over the harness output is empty on both
+windows. Cache: 13,440 × 15m and 840 × 4h BTC bars, 2,976/186 for ETH and SOL.
+
+**Scope warning — this is weaker than the brief's wording.** `runBacktest`/`scanForSignals` are the
+legacy EMA-break core running the backtest's own defaults (SL 0.3 / TP 1.2 / 4H EMA75 filter). They
+are **not** the shipped `layer2-signal.computeLayer2Signal` scoring, where `minScore 8`, the 7/30
+EMA gap, the advisor veto, chop/ATR-floor/spread gates and the rest of the inventory live. So this
+proves the ported backtest core reproduces the reference exactly on real bars; it does **not** prove
+the shipped signal engine's per-pair entry counts. A `computeLayer2Signal` replay is still owed —
+it needs per-bar metrics, BTC regime and advisor inputs assembled before it can run.
+
+The negative returns are a property of those legacy defaults over these windows, not a verdict on the
+shipped strategy, and not a reason to touch a threshold.
+
+First run of this harness returned **0 signals in both trees** — identical, but vacuous. The cause was
+mine: `CachedKline` was mapped to a `{time, ...}` shape while `Kline` keys pivots off
+`openTime`/`closeTime`, so every variant produced nothing. Fixed in the harness and re-run. Recorded
+here because "identical output" and "meaningful output" are different claims.
