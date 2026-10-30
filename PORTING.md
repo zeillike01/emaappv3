@@ -53,10 +53,12 @@ Source: `github.com/zeillike01/ema-break-appv2`, branch `freebuff/c18e1d1930d05b
 ## Disabled (record-only, changes no gate)
 
 - The `down-block-shadow-capture` / `down-block-shadow-resolve` crons are commented out in
-  `src/convex/crons.ts`: their module `src/convex/downBlockShadow.ts` was never committed upstream
-  and Convex validates cron targets at deploy time, so leaving them registered fails the
-  deployment. The reference's own comment on that block reads *"Nothing in the trading path reads
-  the table"* — this is the forward-test record of refused signals, not an entry gate.
+  `src/convex/crons.ts`: their module `src/convex/downBlockShadow.ts` was never committed upstream,
+  so the registration targets a function that does not exist — an invalid cron target either fails
+  push validation or, worse, installs a job that throws on every fire. (Not verified locally: there
+  is no deployment here to push against. The `api.*` call path is proven broken differently — see
+  BLOCKER.) The reference's own comment on that block reads *"Nothing in the trading path reads the
+  table"* — this is the forward-test record of refused signals, not an entry gate.
 
 ## BLOCKER: `marketDataNode`
 
@@ -69,6 +71,11 @@ That missing module is what fetches ~94 MEXC reads per tick and writes the singl
 doc per tick. It is the **producer of every price-derived gate input**: `atrPct` (ATR floor),
 `spreadPct` (spread gate), `flowBias` (order-flow scoring), `candleRangePct`, `vol24h` (vol floor),
 `fundingRate`, `imbalance`.
+
+Evidence the reference cannot run as published: `StrategyConfigPanel.tsx` calls
+`useAction(api.marketDataNode.marketDataTick)`, and an unresolvable function reference surfaces as
+`Could not find public function ...` — the same failure class the reference's own `main.tsx` comment
+documents. So the gap is not cosmetic even if a push happened to succeed.
 
 It is therefore **not reconstructable without inventing strategy inputs**. Writing a plausible
 `computeMetricsForPair` would make every downstream parity claim meaningless while still passing
@@ -106,6 +113,43 @@ Nothing is seeded and nothing needs to be: reads fall back to code defaults.
 - Note: `npx convex run` carries **no user identity**, so every `requireOperator()`-gated mutation
   (`resetConfig`, `setLiveDefaults`, `updateConfig`, `setLiveEnabled`, …) is refused from the CLI.
   Seeding and arming happen from the signed-in operator UI.
+
+## Audit (2026-10-30) — what was actually checked
+
+**Verbatim port, proven by diff.** Every ported file was byte-compared against the reference
+clone. Only 9 differ, each one a change recorded above: `.env.example`, `.gitignore`,
+`package.json`, `src/convex/crons.ts`, `src/main.tsx`, `src/pages/{Live,Dashboard}.tsx`, plus
+`PORTING.md` and `tickTiming.ts` which are new. Every other runtime file is identical.
+
+**Nothing important was dropped.** 174 reference files were not ported: 62 journals, 93
+`run-*`/`luxphase2` labs, 8 `scripts/luxmcp`, 2 CI files, 4 lab-only tests, and `.ignore`
+(a ripgrep ignore file). No runtime module is among them.
+
+**Invariants re-checked in the ported code.**
+- Short book retired: no `shortBook` / short-book creation path anywhere in `src/`.
+- Cron targets: 12 registrations; the three public `api.*` targets (`strategyTick`,
+  `advisorTick`, `marketDataNode.marketDataTick`) are confirmed **ungated**, so the grid does not
+  depend on an operator identity. The other nine are `internal.*`.
+- Internal → gated calls: `liveBrokerRuntime`'s `api.liveEngine.{patchLiveTradePnl,
+  markLiveClosed, markLiveCloseFailed, claimLiveClose, markLiveCloseSubmitted, assertLiveOwner}` are
+  all **ungated**, so a live tick with no identity is not refused.
+- Gated write surface (computed by body scan, wrapper-aware `requireLiveOwner` included):
+  `liveEngine:assertLiveOwner`, `liveEngine:ensureLiveAccount`, `liveEngine:rearmLiveBreaker`, `liveEngine:setLiveEnabled`, `liveEngine:updateLiveSettings`, `liveEngine:setLiveDefaults`, `paperTrading:clearBtcFields`, `reset:resetBookData`, `strategyEngine:updateConfig`, `strategyEngine:resetConfig`.
+  Two UI-only actions (`manualCloseLiveTradeSafe`, `probeLiveConnection`) call `assertLiveOwner` but
+  each checks `ctx.auth.getUserIdentity()` first; no cron target and no tick is in the list above.
+
+**Build.** `npx vite build` → exit 0 (7.7 s), so the React app compiles and bundles, not just
+`tsc`.
+
+**Caveat on the green typecheck.** `tsc` passes partly because `src/convex/_generated/api.d.ts` is
+committed and `skipLibCheck` skips errors inside it — that file still declares the missing
+`marketDataNode`/`downBlockShadow` modules. A real `convex deploy` regenerates it, and the two
+references in `crons.ts` / `StrategyConfigPanel.tsx` then fail typecheck. The green result is
+honest for the code that exists; it does not mean the stack is deployable.
+
+**Left as-is, deliberately:** `package.json` `name` is still `vite-template`, and the root
+`vly-toolbar-readonly.tsx` is unreferenced (it exists in the reference too). Neither affects
+behaviour.
 
 ## Deploy sequence (stopped before step 3 — no credentials in this sandbox)
 
