@@ -22,7 +22,8 @@
     "lux:inventory": "bun run scripts/luxmcp/inventory.ts",
     "lux:fetch": "bun run scripts/luxmcp/fetch-concepts.ts && bun run scripts/luxmcp/fetch-sources.ts",
     "lux:extract": "bun run scripts/luxmcp/extract.ts",
-    "lux:validate": "bun run scripts/luxmcp/validate.ts"
+    "lux:validate": "bun run scripts/luxmcp/validate.ts",
+    "setup:check": "bun run scripts/preflight.ts"
   },
   "dependencies": {
     "@convex-dev/auth": "^0.0.90",
